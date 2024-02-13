@@ -42,6 +42,6 @@ public class User extends BaseEntity {
     @Column(columnDefinition =  "VARCHAR(32)")
     private State state;
 
-    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Portfolio> portfolioList = new ArrayList<>();
 }

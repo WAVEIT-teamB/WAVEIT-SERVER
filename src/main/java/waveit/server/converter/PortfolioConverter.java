@@ -8,7 +8,6 @@ public class PortfolioConverter {
         PortfolioRes portfolioRes = new PortfolioRes();
         portfolioRes.setId(portfolio.getId());
         portfolioRes.setLink(portfolio.getLink());
-        // 기타 필드들...
 
         return portfolioRes;
     }

@@ -38,6 +38,12 @@ public class PortfolioService {
         return portfolioRepository.save(portfolio);
     }
 
+    /**
+     * 포트폴리오 링크 수정
+     * @param id 포트폴리오 id
+     * @param userId user id
+     * @param link 수정할 포트폴리오 링크
+     */
     @Transactional
     public Portfolio updatePortfolio(Long id, Long userId, String link) throws Exception {
         User user = userRepository.findById(userId)
@@ -56,6 +62,10 @@ public class PortfolioService {
 
     }
 
+    /**
+     * 포트폴리오 링크 삭제
+     * @param id 포트폴리오 id
+     */
     @Transactional
     public void deletePortfolio(Long id) throws Exception {
         Portfolio portfolio = portfolioRepository.findById(id)
@@ -64,6 +74,10 @@ public class PortfolioService {
         portfolioRepository.delete(portfolio);
     }
 
+    /**
+     * 포트폴리오 목록 조회
+     * @param userId user id
+     */
     public List<PortfolioRes> getPortfoliosByUserId(Long userId) {
         List<Portfolio> portfolios = portfolioRepository.findByUserId(userId);
         return portfolios.stream()
@@ -71,6 +85,11 @@ public class PortfolioService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 포트폴리오 상세 조회
+     * @param userId user id
+     * @param portfolioId 포트폴리오 id
+     */
     public PortfolioRes getPortfolio(Long userId, Long portfolioId) throws Exception {
         Portfolio portfolio = portfolioRepository.findByIdAndUserId(portfolioId, userId)
                 .orElseThrow(() -> new Exception("포트폴리오가 존재하지 않습니다."));

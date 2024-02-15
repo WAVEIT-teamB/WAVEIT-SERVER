@@ -9,6 +9,7 @@ import waveit.server.domain.enums.State;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -22,7 +23,7 @@ public class Portfolio extends BaseEntity {
     private User user;
 
     @Column(nullable = false, length = 2048)
-    private String content;
+    private String link;
 
 }
 

@@ -16,4 +16,5 @@ public class PostRes {
     private String title;
     private Category category;
     private Part part;
+    private Long cnt;
 }

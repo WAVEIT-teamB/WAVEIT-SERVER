@@ -1,19 +1,12 @@
 package waveit.server.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import waveit.server.converter.UserConverter;
-import waveit.server.domain.User;
 import waveit.server.global.payload.ApiResponse;
 import waveit.server.service.UserService;
-import waveit.server.web.dto.UserDTO;
-
-import java.nio.file.attribute.UserPrincipal;
-import java.util.Map;
+import waveit.server.web.dto.UserReq;
+import waveit.server.web.dto.UserRes;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,11 +18,28 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<?> getMyInfo() {
         try {
-            UserDTO userDTO = userService.getMyInfo();
+            UserRes userRes = userService.getMyInfo();
 
             ApiResponse apiResponse = ApiResponse.builder()
                     .check(true)
-                    .information(userDTO)
+                    .information(userRes)
+                    .build();
+
+            return ResponseEntity.ok(apiResponse);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<?> updateMyInfo(@RequestBody UserReq userReq) {
+        try {
+
+            userReq = userService.updateMyInfo(userReq);
+
+            ApiResponse apiResponse = ApiResponse.builder()
+                    .check(true)
+                    .information(userReq)
                     .build();
 
             return ResponseEntity.ok(apiResponse);

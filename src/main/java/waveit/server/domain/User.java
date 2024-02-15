@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import waveit.server.domain.common.BaseEntity;
 import waveit.server.domain.enums.State;
+import waveit.server.web.dto.UserReq;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,4 +46,11 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Portfolio> portfolioList = new ArrayList<>();
+
+    public void update(UserReq userReq) {
+        this.name = userReq.getName();
+        this.phone = userReq.getPhone();
+        this.email = userReq.getEmail();
+        this.introduce = userReq.getIntroduce();
+    }
 }

@@ -2,9 +2,9 @@ package waveit.server.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import waveit.server.domain.User;
+import waveit.server.domain.Member;
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByLoginId(String loginId);
-    User findByLoginIdAndPassword(String loginId, String password);
+    Member findByLoginIdAndPassword(String loginId, String password);
 }

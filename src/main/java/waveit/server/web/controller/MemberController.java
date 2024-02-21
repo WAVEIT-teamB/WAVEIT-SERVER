@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import waveit.server.domain.User;
+import waveit.server.domain.Member;
 import waveit.server.global.payload.ApiResponse;
-import waveit.server.service.UserService;
+import waveit.server.service.MemberService;
 import waveit.server.web.dto.LoginReq;
 import waveit.server.web.dto.UserReq;
 import waveit.server.web.dto.UserRes;
@@ -14,12 +14,12 @@ import waveit.server.web.dto.UserRes;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
-    private final UserService userService;
+public class MemberController {
+    private final MemberService memberService;
 
     @PostMapping("/signup")
     public ResponseEntity<String> signUpUser(@RequestBody UserReq userReq){
-        boolean isSignup = userService.signUpUser(userReq);
+        boolean isSignup = memberService.signUpUser(userReq);
         if(isSignup){
             return ResponseEntity.ok("User signup successfully");
         }else {
@@ -29,15 +29,15 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserRes> loginUser(@RequestBody LoginReq loginReq){
-        User user = userService.loginUser(loginReq);
-        if(user != null){
+        Member member = memberService.loginUser(loginReq);
+        if(member != null){
             UserRes userRes = UserRes.builder()
-                    .id(user.getId())
-                    .loginId(user.getLoginId())
-                    .name(user.getName())
-                    .phone(user.getPhone())
-                    .email(user.getEmail())
-                    .introduce(user.getIntroduce())
+                    .id(member.getId())
+                    .loginId(member.getLoginId())
+                    .name(member.getName())
+                    .phone(member.getPhone())
+                    .email(member.getEmail())
+                    .introduce(member.getIntroduce())
                     .build();
             return ResponseEntity.ok(userRes);
         }else {
@@ -49,7 +49,7 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<?> getMyInfo() {
         try {
-            UserRes userRes = userService.getMyInfo();
+            UserRes userRes = memberService.getMyInfo();
 
             ApiResponse apiResponse = ApiResponse.builder()
                     .check(true)
@@ -66,7 +66,7 @@ public class UserController {
     public ResponseEntity<?> updateMyInfo(@RequestBody UserReq userReq) {
         try {
 
-            userReq = userService.updateMyInfo(userReq);
+            userReq = memberService.updateMyInfo(userReq);
 
             ApiResponse apiResponse = ApiResponse.builder()
                     .check(true)

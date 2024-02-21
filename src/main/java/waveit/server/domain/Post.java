@@ -19,7 +19,7 @@ public class Post extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user; // 글 작성자 user id
+    private Member member; // 글 작성자 user id
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition =  "VARCHAR(32)")

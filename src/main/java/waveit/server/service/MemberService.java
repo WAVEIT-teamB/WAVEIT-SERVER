@@ -8,6 +8,7 @@ import waveit.server.domain.User;
 
 import waveit.server.repository.UserRepository;
 import waveit.server.temp.UserIdProvider;
+import waveit.server.web.dto.LoginReq;
 import waveit.server.web.dto.UserReq;
 import waveit.server.web.dto.UserRes;
 
@@ -17,6 +18,30 @@ import waveit.server.web.dto.UserRes;
 public class UserService {
     private final UserRepository userRepository;
     private final UserIdProvider userIdProvider;
+
+    @Transactional
+    public boolean signUpUser(UserReq userReq){
+        if (userRepository.existsByLoginId(userReq.getLoginId())){
+            return false;
+        }
+        User user = User.builder()
+                .loginId(userReq.getLoginId())
+                .name(userReq.getName())
+                .phone(userReq.getPhone())
+                .email(userReq.getEmail())
+                .password(userReq.getPassword())
+                .auth(false)
+                .introduce(userReq.getIntroduce())
+                .build();
+
+        userRepository.save(user);
+
+        return true;
+    }
+
+    public User loginUser(LoginReq loginReq){
+        return userRepository.findByLoginIdAndPassword(loginReq.getLoginId(), loginReq.getPassword());
+    }
 
     /**
      * 내 정보 확인

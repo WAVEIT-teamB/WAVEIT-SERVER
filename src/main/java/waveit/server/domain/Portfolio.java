@@ -20,7 +20,7 @@ public class Portfolio extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Member member;
 
     @Column(nullable = false, length = 2048)
     private String link;

@@ -9,6 +9,7 @@ import waveit.server.domain.enums.State;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

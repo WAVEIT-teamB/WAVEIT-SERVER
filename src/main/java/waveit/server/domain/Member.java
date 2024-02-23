@@ -1,13 +1,13 @@
 package waveit.server.domain;
 
-import jakarta.persistence.*;
-import lombok.*;
-import waveit.server.domain.common.BaseEntity;
-import waveit.server.domain.enums.State;
-import waveit.server.web.dto.UserReq;
+        import jakarta.persistence.*;
+        import lombok.*;
+        import waveit.server.domain.common.BaseEntity;
+        import waveit.server.domain.enums.State;
+        import waveit.server.web.dto.UserReq;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
 @Entity
 @Getter
@@ -15,12 +15,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+<<<<<<< HEAD:src/main/java/waveit/server/domain/User.java
 @Table(name="USER_TABLE")
 public class User extends BaseEntity {
+=======
+public class Member extends BaseEntity {
+>>>>>>> 39f90e6098f3f4507ca8f8a4e4a30be806a85c10:src/main/java/waveit/server/domain/Member.java
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String loginId;
 
     @Column(nullable = false, length = 64)
@@ -45,7 +50,7 @@ public class User extends BaseEntity {
     @Column(columnDefinition =  "VARCHAR(32)")
     private State state;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Portfolio> portfolioList = new ArrayList<>();
 
     public void update(UserReq userReq) {

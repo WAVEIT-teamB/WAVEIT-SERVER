@@ -6,13 +6,10 @@ import waveit.server.domain.enums.Part;
 
 @Data
 @Builder
-@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRes {
-    private Long id;
-    private Long postId;
+public class PostReq {
     private String title;
     private Category category;
     private Part part;

@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import waveit.server.converter.PortfolioConverter;
-import waveit.server.domain.Portfolio;
 import waveit.server.domain.Member;
+import waveit.server.domain.Portfolio;
 import waveit.server.repository.PortfolioRepository;
 import waveit.server.repository.MemberRepository;
 import waveit.server.web.dto.PortfolioRes;
@@ -79,7 +79,7 @@ public class PortfolioService {
      * @param userId user id
      */
     public List<PortfolioRes> getPortfoliosByUserId(Long userId) {
-        List<Portfolio> portfolios = portfolioRepository.findByUserId(userId);
+        List<Portfolio> portfolios = portfolioRepository.findByMemberId(userId);
         return portfolios.stream()
                 .map(PortfolioConverter::convertToDTO)
                 .collect(Collectors.toList());
@@ -91,7 +91,7 @@ public class PortfolioService {
      * @param portfolioId 포트폴리오 id
      */
     public PortfolioRes getPortfolio(Long userId, Long portfolioId) throws Exception {
-        Portfolio portfolio = portfolioRepository.findByIdAndUserId(portfolioId, userId)
+        Portfolio portfolio = portfolioRepository.findByIdAndMemberId(portfolioId, userId)
                 .orElseThrow(() -> new Exception("포트폴리오가 존재하지 않습니다."));
         return PortfolioConverter.convertToDTO(portfolio);
     }

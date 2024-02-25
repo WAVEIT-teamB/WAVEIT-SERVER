@@ -7,6 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserReq {
+    private String loginId;
+    private String password;
     private String name;
     private String phone;
     private String email;

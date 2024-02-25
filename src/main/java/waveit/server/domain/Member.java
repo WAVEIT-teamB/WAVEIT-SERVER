@@ -1,13 +1,13 @@
 package waveit.server.domain;
 
-import jakarta.persistence.*;
-import lombok.*;
-import waveit.server.domain.common.BaseEntity;
-import waveit.server.domain.enums.State;
-import waveit.server.web.dto.UserReq;
+        import jakarta.persistence.*;
+        import lombok.*;
+        import waveit.server.domain.common.BaseEntity;
+        import waveit.server.domain.enums.State;
+        import waveit.server.web.dto.UserReq;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
 @Entity
 @Getter
@@ -46,7 +46,7 @@ public class Member extends BaseEntity {
     @Column(columnDefinition =  "VARCHAR(32)")
     private State state;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Portfolio> portfolioList = new ArrayList<>();
 
     public void update(UserReq userReq) {

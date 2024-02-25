@@ -1,6 +1,7 @@
 package waveit.server.web.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import waveit.server.domain.Member;
@@ -31,13 +32,13 @@ public class MemberController {
     아이디 중복 확인
      */
     @PostMapping("/checkduplicate")
-    public String checkDuplicateLoginId(@RequestBody UserReq userReq){
+    public ResponseEntity<String> checkDuplicateLoginId(@RequestBody UserReq userReq){
         String loginId = userReq.getLoginId();
         boolean isDuplicate = memberService.checkDuplicateLoginId(loginId);
         if (isDuplicate){
-            return "중복된 아이디입니다.";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("중복된 아이디입니다.");
         } else {
-            return "사용 가능한 아이디입니다.";
+            return ResponseEntity.ok().body("사용 가능한 아이디입니다.");
         }
     }
 
@@ -45,11 +46,18 @@ public class MemberController {
     로그인
      */
     @PostMapping("/login")
-    public Member loginUser(@RequestBody LoginReq loginReq){
-        String loginId = loginReq.getLoginId();
-        String password = loginReq.getPassword();
-        return memberService.loginUser(loginId, password);
+    public ResponseEntity<?> loginUser(@RequestBody LoginReq loginReq){
+        try{
+            String loginId = loginReq.getLoginId();
+            String password = loginReq.getPassword();
+            Member member = memberService.loginUser(loginId, password);
+            return ResponseEntity.ok(member);
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 과정에서 오류가 발생했습니다.");
         }
+    }
 
 
 

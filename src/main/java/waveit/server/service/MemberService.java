@@ -22,6 +22,9 @@ public class MemberService {
     private final UserIdProvider userIdProvider;
     private final PasswordEncoder passwordEncoder;
 
+    /*
+    회원가입
+     */
     @Transactional
     public void signUpUser(UserReq userReq){
         Member member = Member.builder()
@@ -38,10 +41,17 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    /*
+    회원가입 중 아이디 중복 확인
+     */
     public boolean checkDuplicateLoginId(String loginId){
         return memberRepository.existsByLoginId(loginId);
     }
 
+
+    /*
+    로그인
+     */
     @Transactional(readOnly = true)
     public Member loginUser(String loginId, String password){
         Member member = memberRepository.findByLoginId(loginId)

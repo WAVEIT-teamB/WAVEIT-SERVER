@@ -3,9 +3,6 @@ package waveit.server.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import waveit.server.domain.common.BaseEntity;
-import waveit.server.domain.enums.Category;
-import waveit.server.domain.enums.Part;
-import waveit.server.domain.enums.State;
 
 @Entity
 @Getter
@@ -20,7 +17,7 @@ public class Portfolio extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Member member;
 
     @Column(nullable = false, length = 2048)
     private String link;

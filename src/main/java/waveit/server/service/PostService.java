@@ -2,21 +2,19 @@ package waveit.server.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import waveit.server.converter.PostConverter;
 import waveit.server.domain.Application;
 import waveit.server.domain.Likes;
 import waveit.server.domain.Post;
-import waveit.server.domain.User;
+import waveit.server.domain.Member;
 import waveit.server.domain.enums.Category;
 import waveit.server.domain.enums.Part;
 import waveit.server.repository.ApplicationRepository;
 import waveit.server.repository.LikesRepository;
 import waveit.server.repository.PostRepository;
-import waveit.server.repository.UserRepository;
+import waveit.server.repository.MemberRepository;
 import waveit.server.temp.UserIdProvider;
 import waveit.server.web.dto.PostReq;
 import waveit.server.web.dto.PostRes;
@@ -31,7 +29,7 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final LikesRepository likesRepository;
     private final ApplicationRepository applicationRepository;
 
@@ -105,14 +103,14 @@ public class PostService {
 
 
     public Application applyToPost(Long postId, Long userId, String motivation, String portfolioLink) {
-        User user = userRepository.findById(userId)
+        Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id " + userId));
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found with id " + postId));
 
         Application application = Application.builder()
-                .user(user)
+                .member(member)
                 .post(post)
                 .motivation(motivation)
                 .portfolioLink(portfolioLink)

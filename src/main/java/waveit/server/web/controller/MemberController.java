@@ -4,21 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import waveit.server.global.payload.ApiResponse;
-import waveit.server.service.UserService;
+import waveit.server.service.MemberService;
 import waveit.server.web.dto.UserReq;
 import waveit.server.web.dto.UserRes;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
-    private final UserService userService;
+public class MemberController {
+    private final MemberService memberService;
 
 
     @GetMapping("/me")
     public ResponseEntity<?> getMyInfo() {
         try {
-            UserRes userRes = userService.getMyInfo();
+            UserRes userRes = memberService.getMyInfo();
 
             ApiResponse apiResponse = ApiResponse.builder()
                     .check(true)
@@ -35,7 +35,7 @@ public class UserController {
     public ResponseEntity<?> updateMyInfo(@RequestBody UserReq userReq) {
         try {
 
-            userReq = userService.updateMyInfo(userReq);
+            userReq = memberService.updateMyInfo(userReq);
 
             ApiResponse apiResponse = ApiResponse.builder()
                     .check(true)

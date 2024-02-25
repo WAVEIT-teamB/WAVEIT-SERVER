@@ -7,8 +7,6 @@ import waveit.server.domain.enums.Category;
 import waveit.server.domain.enums.Part;
 import waveit.server.domain.enums.State;
 import waveit.server.web.dto.PostReq;
-import waveit.server.web.dto.PostRes;
-import waveit.server.web.dto.UserReq;
 
 @Entity
 @Getter
@@ -23,7 +21,7 @@ public class Post extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user; // 글 작성자 user id
+    private Member member; // 글 작성자 user id
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition =  "VARCHAR(32)")

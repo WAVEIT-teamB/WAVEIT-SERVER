@@ -102,9 +102,9 @@ public class PostService {
     }
 
 
-    public Application applyToPost(Long postId, Long userId, String motivation, String portfolioLink) {
-        Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id " + userId));
+    public Application applyToPost(Long postId, Long memberId, String motivation, String portfolioLink) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("User not found with id " + memberId));
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found with id " + postId));
@@ -119,8 +119,8 @@ public class PostService {
     }
 
 
-    public List<PostRes> getUserPosts(Long userId) {
-        List<Post> posts = postRepository.findByUser_Id(userId);
+    public List<PostRes> getUserPosts(Long memberId) {
+        List<Post> posts = postRepository.findByMemberId(memberId);
         return posts.stream()
                 .map(post -> {
                     PostRes postRes = PostConverter.convertPostResToDTO(post);

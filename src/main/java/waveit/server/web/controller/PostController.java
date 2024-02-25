@@ -5,13 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import waveit.server.domain.Application;
-import waveit.server.domain.Portfolio;
-import waveit.server.domain.Post;
 import waveit.server.domain.enums.Category;
 import waveit.server.domain.enums.Part;
 import waveit.server.global.payload.ApiResponse;
 import waveit.server.service.PostService;
-import waveit.server.web.dto.PortfolioReq;
 import waveit.server.web.dto.PostReq;
 import waveit.server.web.dto.PostRes;
 import java.util.List;
@@ -126,10 +123,10 @@ public class PostController {
     }
 
     // 지원하기
-    @PostMapping("/{postId}/{userId}/apply")
-    public ResponseEntity<?> applyToPost(@PathVariable Long postId, @PathVariable Long userId,@RequestBody Application application) {
+    @PostMapping("/{postId}/{memberId}/apply")
+    public ResponseEntity<?> applyToPost(@PathVariable Long postId, @PathVariable Long memberId, @RequestBody Application application) {
         try {
-            postService.applyToPost(postId,userId, application.getMotivation(), application.getPortfolioLink());
+            postService.applyToPost(postId, memberId, application.getMotivation(), application.getPortfolioLink());
             ApiResponse apiResponse = ApiResponse.builder()
                     .check(true)
                     .information("Application to post with ID: " + postId + " has been submitted.")
@@ -141,10 +138,10 @@ public class PostController {
     }
 
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getUserPosts(@PathVariable Long userId) {
+    @GetMapping("/user/{memberId}")
+    public ResponseEntity<?> getUserPosts(@PathVariable Long memberId) {
         try{
-            List<PostRes> posts = postService.getUserPosts(userId);
+            List<PostRes> posts = postService.getUserPosts(memberId);
 
             ApiResponse apiResponse = ApiResponse.builder()
                     .check(true)

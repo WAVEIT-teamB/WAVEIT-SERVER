@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class LikesService {
     private final LikesRepository likesRepository;
 
-    public List<LikesRes> findLikedPostsByUserId(Long userId) {
-        List<Likes> likes = likesRepository.findByUserId(userId);
+    public List<LikesRes> findLikedPostsByMemberId(Long memberId) {
+        List<Likes> likes = likesRepository.findByMemberId(memberId);
         return likes.stream()
                 .map(LikesConverter::convertToDTO)
                 .collect(Collectors.toList());

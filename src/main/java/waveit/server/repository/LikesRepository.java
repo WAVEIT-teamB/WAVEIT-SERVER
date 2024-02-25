@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface LikesRepository  extends JpaRepository<Likes, Long> {
 
-    List<Likes> findByUserId(Long userId);
+    List<Likes> findByMemberId(Long memberId);
     Optional<Likes> findByPost(Post post);
 
 }

@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import waveit.server.domain.Post;
 import waveit.server.global.payload.ApiResponse;
 import waveit.server.service.LikesService;
-import waveit.server.service.PortfolioService;
 import waveit.server.web.dto.LikesRes;
 
 import java.util.List;
@@ -22,10 +20,10 @@ public class LikesController {
     private final LikesService likesService;
 
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getLikePostsByUserId(@PathVariable Long userId) {
+    @GetMapping("/user/{memberId}")
+    public ResponseEntity<?> getLikePostsByMemberId(@PathVariable Long memberId) {
         try {
-            List<LikesRes> likePosts = likesService.findLikedPostsByUserId(userId);
+            List<LikesRes> likePosts = likesService.findLikedPostsByMemberId(memberId);
 
             ApiResponse apiResponse = ApiResponse.builder()
                     .check(true)

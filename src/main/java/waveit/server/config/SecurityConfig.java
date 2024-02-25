@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("api/user/login").permitAll()
                         .requestMatchers("api/user/checkduplicate").permitAll()
                         .requestMatchers("api/post/projects").permitAll()
-                        .anyRequest().authenticated());
+                        .anyRequest().permitAll());
         return httpSecurity.build();
     }
 

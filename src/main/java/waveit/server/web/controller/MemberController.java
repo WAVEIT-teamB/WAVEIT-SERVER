@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import waveit.server.domain.Member;
 import waveit.server.global.payload.ApiResponse;
 import waveit.server.service.MemberService;
+import waveit.server.domain.Member;
 import waveit.server.web.dto.LoginReq;
 import waveit.server.web.dto.UserReq;
 import waveit.server.web.dto.UserRes;
@@ -20,12 +20,12 @@ public class MemberController {
 
     /*
     회원가입
-     */
+    */
     @PostMapping("/signup")
     public String signupUser(@RequestBody UserReq userReq){
-            memberService.signUpUser(userReq);
+        memberService.signUpUser(userReq);
         return "redirect:/login";
-        }
+    }
 
 
     /*

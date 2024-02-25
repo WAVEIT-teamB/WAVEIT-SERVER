@@ -22,4 +22,6 @@ public class Application extends BaseEntity {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    private String motivation; // 지원 동기
+    private String portfolioLink; // 포트폴리오 링크
 }

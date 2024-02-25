@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import waveit.server.converter.MemberConverter;
+import waveit.server.converter.UserConverter;
 import waveit.server.domain.Member;
 
 import waveit.server.domain.enums.State;
@@ -70,7 +70,7 @@ public class MemberService {
 
         Member member = memberRepository.findById(userId).orElseThrow(() -> new IllegalStateException("해당 USER가 없습니다."));
 
-        return MemberConverter.convertUserResToDTO(member);
+        return UserConverter.convertUserResToDTO(member);
 
     }
 
@@ -88,7 +88,7 @@ public class MemberService {
 
         memberRepository.save(member);
 
-        return MemberConverter.convertUserReqToDTO(member);
+        return UserConverter.convertUserReqToDTO(member);
 
     }
 

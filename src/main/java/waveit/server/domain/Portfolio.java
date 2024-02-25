@@ -3,9 +3,6 @@ package waveit.server.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import waveit.server.domain.common.BaseEntity;
-import waveit.server.domain.enums.Category;
-import waveit.server.domain.enums.Part;
-import waveit.server.domain.enums.State;
 
 @Entity
 @Getter

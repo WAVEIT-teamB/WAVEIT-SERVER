@@ -6,9 +6,11 @@ import waveit.server.domain.common.BaseEntity;
 import waveit.server.domain.enums.Category;
 import waveit.server.domain.enums.Part;
 import waveit.server.domain.enums.State;
+import waveit.server.web.dto.PostReq;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -36,10 +38,27 @@ public class Post extends BaseEntity {
     private String description; // 설명
 
     @Column(nullable = false, length = 64)
-    private String contact;
+    private String cnt;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition =  "VARCHAR(32)")
     private State state;
 
+    public void update(PostReq postReq) {
+        this.title = postReq.getTitle();
+        this.category = postReq.getCategory();
+        this.part = postReq.getPart();
+        this.cnt = postReq.getCnt();
+        this.description = postReq.getDescription();
+    }
+
+    public static Post convertToPostEntity(PostReq postReq) {
+        Post post = new Post();
+        post.setTitle(postReq.getTitle());
+        post.setCategory(postReq.getCategory());
+        post.setPart(postReq.getPart());
+        post.setDescription(postReq.getDescription());
+        post.setCnt(String.valueOf(postReq.getCnt()));
+        return post;
+    }
 }

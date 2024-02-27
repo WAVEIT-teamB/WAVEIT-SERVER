@@ -36,7 +36,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 64)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Boolean auth;
 
     @Column(nullable = false, length = 2048)
